@@ -1,18 +1,17 @@
 /**
- * Header de piece.cpp
+ * Header de Piece.cxx
  *
- * @file piece.h
+ * @file Piece.h
  */
 
-#if !defined piece_h
-#define piece_h
-
-
+#if !defined Piece_h
+#define Piece_h
 
 /**
- * Declaration d'une classe modÃ©lisant une piece de jeu d'echec.
+ * Declaration d'une classe modélisant une piece de jeu d'echec.
  */
 
+/* #include "Echiquier.h" Pb ref croisee */
 class Echiquier;
 
 class Piece
@@ -24,9 +23,11 @@ protected:
 
 public:
   Piece();
-  Piece(int x, int y, bool white);
-  Piece(const Piece & autre);
-  ~Piece();
+  virtual ~Piece();
+  Piece( const Piece & autre);
+  Piece & operator=( const Piece & autre);
+
+  Piece( int x, int y, bool white );
   void init( int x, int y, bool white );
   void move( int x, int y );
   int x() const;
@@ -34,12 +35,64 @@ public:
   bool isWhite() const;
   bool isBlack() const;
   void affiche() const;
-  Piece & operator=(const Piece & autre);
   virtual char toChar() const;
-  Piece plusForteQue(const Piece & p) const;
-
-  virtual bool mouvementValide(Echiquier &e, int x , int y);// polymorphisme: je peux redeclarer la fonction pour les classes enfants
-
+  virtual bool mouvementValide(Echiquier &e, int x, int y);
+  void setPosition(int x,int y);
 };
 
-#endif // !defined piece_h
+class Roi : public Piece
+{
+ public:
+  Roi(bool white);
+  ~Roi();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+class Tour : virtual public Piece
+{
+ public:
+  Tour(bool white, bool pos);
+  ~Tour();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+class Fou : virtual public Piece
+{
+ public:
+  Fou(bool white, bool pos);
+  ~Fou();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+class Reine : public Tour, public Fou
+{
+ public:
+  Reine(bool white);
+  ~Reine();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+class Cavalier : public Piece
+{
+ public:
+  Cavalier(bool white, bool pos);
+  ~Cavalier();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+class Pion : public Piece
+{
+ public:
+  Pion(bool white, int pos);
+  ~Pion();
+  char toChar() const;
+  bool mouvementValide(Echiquier &e, int x, int y);
+};
+
+
+#endif // !defined Piece_h

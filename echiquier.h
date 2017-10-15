@@ -1,4 +1,4 @@
-/**
+/** 
  * Header de Echiquier.cxx
  *
  * @file Echiquier.h
@@ -7,24 +7,24 @@
 #if !defined Echiquier_h
 #define Echiquier_h
 
-#include "piece.h"
+#include "Piece.h"
 
 /**
- * Declaration d'une classe modÃ©lisant une piece de jeu d'echec.
+ * Declaration d'une classe modélisant une piece de jeu d'echec.
  */
-class Echiquier
+class Echiquier 
 {
 private:
   /**
    * Les cases de l'echiquier
    */
   Piece* m_cases[ 64 ];
-
+  
 public:
 
   /**
-   * Constructeur par dÃ©faut.
-   * Initialise Ã  vide l'echiquier.
+   * Constructeur par défaut.
+   * Initialise à vide l'echiquier.
    */
   Echiquier();
 
@@ -38,7 +38,7 @@ public:
    * vers une piece sinon.
    */
   Piece* getPiece( int x, int y );
-
+  
   /**
    * Place une piece sur l'echiquier, aux coordonnees specifiees dans la piece.
    *
@@ -51,7 +51,7 @@ public:
 
   /**
    * Deplace une piece sur l'echiquier, des coordonnees specifiees
-   * dans la piece aux coordonnees x,y.
+   * dans la piece aux coordonnees x,y. 
    *
    * @param p un pointeur vers une piece
    * @param x un entier entre 1 et 8
@@ -80,7 +80,8 @@ public:
    * blanches et N pour les pieces noires.
    */
   void affiche();
-
+  
 };
 
 #endif // !defined Echiquier_h
+
