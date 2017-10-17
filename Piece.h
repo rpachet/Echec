@@ -37,7 +37,6 @@ public:
   void affiche() const;
   virtual char toChar() const;
   virtual bool mouvementValide(Echiquier &e, int x, int y);
-  void setPosition(int x,int y);
 };
 
 class Roi : public Piece

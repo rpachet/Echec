@@ -205,28 +205,28 @@ bool
 Cavalier::mouvementValide(Echiquier &e, int x, int y)
 {
  // cout << "mouvementValide Cavalier" << endl;
- bool valide = true;
 
-  if(m_y == ((m_white)?2:7))
-  {
-      if(m_x != x || !(y == m_y+((m_white)?1:-1) || y == m_y+((m_white)?2:-2)))
-          valide = false;
-  }
-  else
-  {
-      if(m_x != x || y != m_y+((m_white)?1:-1)){
-          valide = false;
-      }
-  }
-
-  return valide;
 }
 
 bool
 Pion::mouvementValide(Echiquier &e, int x, int y)
 {
 //  cout << "mouvementValide Pion" << endl;
-  return true;
+bool valide = true;
+
+ if(m_y == ((m_white)?2:7))
+ {
+     if(m_x != x || !(y == m_y+((m_white)?1:-1) || y == m_y+((m_white)?2:-2)))
+         valide = false;
+ }
+ else
+ {
+     if(m_x != x || y != m_y+((m_white)?1:-1)){
+         valide = false;
+     }
+ }
+
+ return valide;
 }
 
 char
@@ -269,11 +269,4 @@ char
 Pion::toChar() const
 {
   return m_white?'P':'p';
-}
-
-void
-Piece::setPosition(int x, int y)
-{
-    m_x=x;
-    m_y=y;
 }

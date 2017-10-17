@@ -82,12 +82,8 @@ Echiquier::deplacer( Piece* p, int x, int y )
 {
 Piece *a;
     enleverPiece(p->x(),p->y());
-    p->setPosition(x,y);
+    p->move(x,y);
     a=getPiece(x,y);
-    if(a != NULL)
-    {
-    enleverPiece(a->x(),a->y());
-    }
     placer(p);
     return true;
 }

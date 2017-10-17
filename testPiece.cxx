@@ -74,6 +74,27 @@ void playerTurn(JoueurBlanc &jb, JoueurNoir &jn)
     }
 }
 
+void verifCoordonnees()
+{
+  int x;
+  int y;
+    while(true)
+    {
+        cout << "\nX = ";
+        cin >> x;
+        cout << "\nY = ";
+        cin >> y;
+
+        if((x>=1) && (x<=8) && (y>=1) && (y<=8))
+        {
+            break;
+        }
+        else
+        {
+            cout << "\nCoordonnees incorrectes. Ressaisissez les valeurs :";
+        }
+    }
+}
 
 bool compare(const Piece &p1, const Piece &p2)
 {
@@ -185,27 +206,13 @@ int main( int argc, char** argv )
   ptr=&qb;
   ptr->mouvementValide(e,1,1);
 
-  ptr=&rb;
-  Roi* rptr;
-  rptr=dynamic_cast<Roi*>(ptr);
-  if (rptr!=nullptr)
-    cout << "rb dynamic_cast<Roi*>  ok" << endl;
-  else
-    cout << "rb dynamic_cast<Roi*> nok" << endl;
-
-  ptr=&qb;
-  rptr=dynamic_cast<Roi*>(ptr);
-  if (rptr!=nullptr)
-    cout << "qb dynamic_cast<Roi*>  ok" << endl;
-  else
-    cout << "qb dynamic_cast<Roi*> nok" << endl;
 
   e.affiche();
 
   // les objets definis dans cette fonction sont automatiquement d�truits.
 
     int x,y;
-
+    int newx, newy;
 
     Piece *a;
 
@@ -217,16 +224,14 @@ int main( int argc, char** argv )
         {
             x=0,y=0;
             choiceXY(x,y);
+
+            cout << "\nnouvelle coordonnee X = ";
+            cin >> newx;
+            cout << "\n nouvelle coordonnee Y = ";
+            cin >> newy;
+            e.deplacer(e.getPiece(x,y), newx, newy);
+            e.affiche();
         }
-        a=e.getPiece(x,y);
-        x=-1;y=-1;
-        while(a->mouvementValide(e,x,y)==false)
-        {
-            x=-1,y=-1;
-            choiceXY(x,y);
-        }
-        e.deplacer(a,x,y);
-        e.affiche();
     }
 
     delete a;
