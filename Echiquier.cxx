@@ -12,8 +12,8 @@
 using namespace std;
 
 /**
- * Constructeur par défaut.
- * Initialise à vide l'echiquier.
+ * Constructeur par dï¿½faut.
+ * Initialise ï¿½ vide l'echiquier.
  */
 Echiquier::Echiquier()
 {
@@ -144,5 +144,3 @@ Echiquier::affiche()
     }
   cout << "  12345678" << endl;
 }
-
-

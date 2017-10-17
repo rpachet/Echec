@@ -202,7 +202,7 @@ int main( int argc, char** argv )
 
   e.affiche();
 
-  // les objets definis dans cette fonction sont automatiquement détruits.
+  // les objets definis dans cette fonction sont automatiquement dï¿½truits.
 
     int x,y;
 

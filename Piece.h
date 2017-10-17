@@ -8,7 +8,7 @@
 #define Piece_h
 
 /**
- * Declaration d'une classe modélisant une piece de jeu d'echec.
+ * Declaration d'une classe modï¿½lisant une piece de jeu d'echec.
  */
 
 /* #include "Echiquier.h" Pb ref croisee */
