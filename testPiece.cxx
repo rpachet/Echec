@@ -13,65 +13,13 @@
 // Pour utiliser les flux de iostream sans mettre "std::" tout le temps.
 using namespace std;
 
-void choiceXY(int &x, int &y)
+void choice(int &x, int &y)
 {
-    string message;
-    if(x==0)
-    {
-        message = "Choisir une piece";
-    }
-    else
-    {
-        message = "Case de Destination";
-    }
-    while(x<1 || x>8 && y<1 || y>8)
-    {
-        cout << "Entrer des chiffres entre 1 et 8" << endl;
-        cout << message << endl;
-        cout << "X : ";
-        cin >> x;
-        cout << "Y : ";
-        cin >> y;
-        cout << endl;
-    }
-}
+  cout << "Coordonnees X de la piece (horizontal) :";
+  cin>>x;
 
-void playerTurn(JoueurBlanc &jb, JoueurNoir &jn)
-{
-    if(!jb.getTurn() && !jn.getTurn())
-    {
-        string joueur;
-        cout << "Choisir le joueur qui commence" << endl;
-        cout << "Ecrire 'noir' ou 'blanc'" << endl;
-        cin >> joueur;
-        cout << joueur << endl;
-        while(joueur != "noir" && joueur != "blanc") {
-            cout << "Vous n'avez pas choisis 'noir' ou 'blanc'" << endl;
-            cin >> joueur;
-        }
-        if(joueur == "blanc")
-        {
-            jb.setTurn(true);
-            cout << "Tour du joueur blanc" << endl;
-        }
-        else
-        {
-            jn.setTurn(true);
-            cout << "Tour du joueur noir" << endl;
-        }
-    }
-    else if(jb.getTurn())
-    {
-        jb.setTurn(false);
-        jn.setTurn(true);
-        cout << "Tour du joueur noir" << endl;
-    }
-    else
-    {
-        jb.setTurn(true);
-        jn.setTurn(false);
-        cout << "Tour du joueur blanc" << endl;
-    }
+    cout << "Coordonnees Y de la piece (vertical) :";
+    cin>>y;
 }
 
 void verifCoordonnees()
@@ -209,30 +157,59 @@ int main( int argc, char** argv )
 
   e.affiche();
 
-  // les objets definis dans cette fonction sont automatiquement d�truits.
 
     int x,y;
     int newx, newy;
-
+    bool finPartie = false;
+    bool joeurTurn =true; //true = black false = white
     Piece *a;
 
-    while(true)
-    {
-        playerTurn(jb,jn);
-        x=0,y=0;
-        while(e.getPiece(x,y)==NULL)
-        {
-            x=0,y=0;
-            choiceXY(x,y);
+    while(finPartie == false){
+      bool mouvementValide = false;
+      e.affiche();
+      x=0,y=0;
 
+      if (joeurTurn == true)
+      {
+        cout <<"tour du joueur blanc" << endl;
+      }
+     else
+     {
+        cout <<"tour du joueur noir" << endl;
+     }
+
+      while(!mouvementValide){
+        x=0,y=0;
+        choice(x,y);
+
+        if(e.getPiece(x,y) != NULL){
+          if ((joeurTurn && e.getPiece(x, y)->isWhite()) || (!joeurTurn && e.getPiece(x, y)->isBlack()))
+          {
             cout << "\nnouvelle coordonnee X = ";
             cin >> newx;
             cout << "\n nouvelle coordonnee Y = ";
             cin >> newy;
-            e.deplacer(e.getPiece(x,y), newx, newy);
-            e.affiche();
+
+            if (e.getPiece(x,y)->mouvementValide(e,newx,newy))
+            {
+              e.deplacer(e.getPiece(x,y), newx, newy);
+               mouvementValide = true;
+               e.affiche();
+               joeurTurn =false;
+            }
+
+            else{
+                cout<<"Mouvement invalide !!"<< endl;
+            }
+          }
+          else
+          {
+            cout << "La piece choisie n'est pas à vous ! "<<endl;
+          }
         }
+      }
     }
+
 
     delete a;
 
